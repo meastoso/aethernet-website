@@ -1,0 +1,42 @@
+.btn-circle.btn-circle-raised.btn-twitch {
+	background-color: #483779;
+}
+
+.btn-circle.btn-circle-raised.btn-twitch::before {
+	background-color: #302550;
+}
+
+.btn-circle.btn-circle-raised.btn-website {
+	background-color: #5d5d5d;
+}
+
+.btn-circle.btn-circle-raised.btn-website::before {
+	background-color: #3d3d3d;
+}
+
+.ms-hero-img-team {
+	background-image: url(../img/team-bkg.png) !important;
+}
+
+.custom-image-left {
+	margin-left: 20px;
+}
+
+.custom-image-right {
+	margin-left: 100px;
+}
+
+.aethernet-icon {
+	width: 45px;
+	background-color: #26a69a;
+	border-radius: 50%;
+	margin-right: 5px !important;
+}
+
+.ms-hero-img-keyboard {
+	background-image: url(../img/aetheryte-background.png);
+}
+
+.aethernet-special {
+	padding-top: 20px;
+}
