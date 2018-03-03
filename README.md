@@ -1,5 +1,5 @@
 # aethernet-website
-Repository to hold all aethernet-website content which gets shipped via FTP to our webserver.
+Repository to hold all aethernet-website content which gets shipped via FTP to our webserver. Ask for an FTP account from meastoso if you wish to contribute here and push mainline changes to FTP server.
 
-# Test Push
-This is a test push
+# TODO
+Much still TODO!
