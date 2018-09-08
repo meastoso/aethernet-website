@@ -27,10 +27,12 @@
 }
 
 .aethernet-icon {
-	width: 45px;
-	background-color: #26a69a;
-	border-radius: 50%;
-	margin-right: 5px !important;
+    margin-right: 5px !important;
+    height: 70px;
+}
+
+.aethernet-icon-small {
+	height: 40px !important;
 }
 
 .ms-hero-img-keyboard {
@@ -40,3 +42,98 @@
 .aethernet-special {
 	padding-top: 20px;
 }
+
+.ms-navbar {
+	background-color: #3FA6E2;
+}
+
+.ms-header-white+.ms-navbar-primary .navbar-collapse .navbar-nav .nav-item.dropdown .dropdown-menu li .dropdown-item:focus,
+.ms-header-white+.ms-navbar-primary .navbar-collapse .navbar-nav .nav-item.dropdown .dropdown-menu li .dropdown-item:hover {
+	background-color: #3FA6E2;
+}
+
+.btn-circle.btn-circle-primary,
+.ms-header .header-right .search-form label {
+	color: #3FA6E2;
+}
+
+.btn-circle.btn-circle-primary:before,
+.ms-header .header-right .search-form label:before {
+	background-color: #3FA6E2;
+}
+
+.color-primary {
+	color: #3FA6E2 !important;
+}
+
+.ms-list-arrow li:before {
+	background-color: #3FA6E2;
+}
+
+.btn.btn-raised.btn-warning, .btn.btn-fab.btn-warning, .btn-group-raised .btn.btn-warning, .input-group-btn .btn.btn-raised.btn-warning, .input-group-btn .btn.btn-fab.btn-warning, .btn-group-raised .input-group-btn .btn.btn-warning {
+	background-color: #FF9029; /* orange */	    
+}
+
+.btn.btn-raised.btn-primary {
+	background-color: #3FA6E2;
+}
+
+.ms-icon.ms-icon-inverse {
+	color: #3FA6E2;
+    border: solid 1px #3FA6E2;
+}
+
+#back-top {
+	color: #3FA6E2;
+	background-color: white;
+}
+
+#back-top:hover {
+	color: white;
+}
+
+#back-top:before {
+	color: white;
+	background-color: #3FA6E2;
+}
+
+.ms-hero-bg-primary:after {
+	background-color: rgba(14, 43, 62, 0.85);
+}
+
+.btn.btn-raised:not(.btn-link):hover.btn-primary {
+	background-color: #006DBC; /* darker-blue */
+}
+
+.btn.btn-raised:not(.btn-link):active.btn-primary,
+.btn.btn-raised:not(.btn-link):focus.btn-primary {
+	background-color: #3FA6E2;
+}
+
+.ms-hero-img-keyboard {
+    background-image: url(../img/rebrand/kugane.png);
+}
+
+.card.card-primary {
+	border-bottom: solid 3px #3FA6E2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
