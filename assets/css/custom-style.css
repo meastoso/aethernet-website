@@ -71,7 +71,7 @@
 }
 
 .btn.btn-raised.btn-warning, .btn.btn-fab.btn-warning, .btn-group-raised .btn.btn-warning, .input-group-btn .btn.btn-raised.btn-warning, .input-group-btn .btn.btn-fab.btn-warning, .btn-group-raised .input-group-btn .btn.btn-warning {
-	background-color: #FF9029; /* orange */	    
+	background-color: #FF9029; /* orange */
 }
 
 .btn.btn-raised.btn-primary {
@@ -121,19 +121,10 @@
 
 
 
+@media (max-width: 550px) {
+	.typed-title {
+		min-height:200px;
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
