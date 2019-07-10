@@ -118,13 +118,223 @@
 	border-bottom: solid 3px #3FA6E2;
 }
 
+.aethernet-spinner {
+	width: 60px;
+	height: 60px;
+	margin: auto;
+	text-align: center;
+	-webkit-animation: sk-rotate 2.0s infinite linear;
+	animation: sk-rotate 2.0s infinite linear;
+}
 
+.aethernet-dot1, .aethernet-dot2 {
+	width: 60%;
+	height: 60%;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	background-color: #3EA5E1;
+	border-radius: 100%;
+	-webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+	animation: sk-bounce 2.0s infinite ease-in-out;
+}
 
+.aethernet-dot2 {
+	top: auto;
+	bottom: 0;
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+}
 
-@media (max-width: 550px) {
+.day-selection-container {
+	display: flex;
+}
+
+.days-container {
+	display: flex;
+	flex-grow: 1;
+	max-width: 80%;
+	overflow: hidden;
+}
+
+.day {
+	flex-grow: 1;
+	background-color: #dddddd;
+	margin: 0px 2px 0px 2px;
+	padding: 5px 5px 5px 10px;
+	min-width: 75px;
+}
+
+.day.selected {
+	background-color: #3FA6E2;
+	color: #fefefe;
+}
+
+.day-clicker {
+	background-color: #ccc;
+}
+
+.day-clicker-icon {
+	color: #3FA6E2;
+	font-size: 30px;
+	margin-top: 10px;
+	vertical-align: text-top;
+}
+
+.day-name {
+	font-size: 1.7em;
+}
+
+.day-date {
+	font-weight: 300;
+	margin-top: -5px;
+	text-transform: lowercase;
+}
+
+.job-image {
+	height: 80% !important;
+	width: 80% !important;
+}
+
+.typed-title {
+	height: 200px;
+}
+
+.character-images {
+	display: none;
+}
+
+.schedule-event {
+	border-bottom: 1px solid #ddd;
+}
+
+.event-time {
+	padding: 10px;
+	width: 90px;
+}
+
+span.schedule-event-time {
+	font-size: 1.6em;
+}
+
+span.schedule-event-time2 {
+	font-weight: 300;
+}
+
+.twitch-profile-pic {
+	display: none;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.twitch-profile-pic img {
+	border-radius: 50%;
+	max-height: 75px;
+}
+
+.event-description {
+	max-width: 275px;
+	padding: 10px;
+}
+
+.event-description .streamer-name {
+	font-size: 1.6em;
+	font-weight: 500;
+}
+
+.event-description .follow a {
+	color: #3FA6E2;
+	font-size: 0.9em;
+}
+
+.watch-live-link {
+	display: flex;
+	justify-content: center;
+	margin-top: -50px;
+	padding-bottom: 20px;
+}
+
+.watch-live-link a {
+	color: #3FA6E2;
+}
+
+/*
+ ------------------------------------
+ 		CSS Media Queries Here
+ ------------------------------------
+ */
+@media (min-width: 576px) {
 	.typed-title {
-		min-height:200px;
+		height: initial;
 	}
+	.days-container {
+		max-width: initial;
+		overflow: initial;
+	}
+	.character-images {
+		display: initial;
+	}
+	.event-description {
+		max-width: 500px;
+	}
+	.twitch-profile-pic {
+		display: initial;
+	}
+}
 
+@media (min-width: 768px) {
+	.typed-title {
+		height: initial;
+	}
+	.days-container {
+		max-width: initial;
+		overflow: initial;
+	}
+	.character-images {
+		display: initial;
+	}
+	.event-description {
+		max-width: 650px;
+	}
+	.twitch-profile-pic {
+		display: initial;
+	}
+}
 
+@media (min-width: 992px) {
+	.typed-title {
+		height: initial;
+	}
+	.days-container {
+		max-width: initial;
+		overflow: initial;
+	}
+	.character-images {
+		display: initial;
+	}
+	.event-description {
+		max-width: 900px;
+	}
+	.twitch-profile-pic {
+		display: initial;
+	}
+}
+
+@media (min-width: 1200px) {
+	.typed-title {
+		height: initial;
+	}
+	.days-container {
+		max-width: initial;
+		overflow: initial;
+	}
+	.character-images {
+		display: initial;
+	}
+	.event-description {
+		max-width: 1100px;
+	}
+	.twitch-profile-pic {
+		display: initial;
+	}
 }

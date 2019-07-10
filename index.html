@@ -193,11 +193,11 @@
                   <i class="zmdi zmdi-accounts"></i> View the Team</a>
               </div>
             </div>
-            <div class="col-lg-6 text-center mt-4">
+            <div class="col-lg-6 text-center mt-4 character-images">
               <div class="img-phone-container">
-                <img class="img-fluid animated zoomInDown animation-delay-3 index-1" src="assets/img/jobs/botanist.png">
-                <img class="img-fluid img-phone-left custom-image-left" src="assets/img/jobs/dark-knight.png">
-                <img class="img-fluid img-phone-right custom-image-right" src="assets/img/jobs/machinist.png"> </div>
+                <img class="job-image img-fluid animated zoomInDown animation-delay-3 index-1" src="assets/img/jobs/botanist.png">
+                <img class="job-image img-fluid img-phone-left custom-image-left" src="assets/img/jobs/dark-knight.png">
+                <img class="job-image img-fluid img-phone-right custom-image-right" src="assets/img/jobs/machinist.png"> </div>
             </div>
 
             <div class="col-lg-12">
@@ -223,6 +223,34 @@
           </div>
         </div>
       </header>
+      <div class="container schedule">
+        <section class="mb-4" id="schedule-section">
+          <h2 class="text-center no-mt mb-6 wow fadeInUp">Shadowbringers <strong>Stream-athon</strong> Schedule</h2>
+          <div class="watch-live-link"><a href="#">Watch Live Right Now!</a></div>
+          <div class="row" id="scheduleLoadingSpinner">
+            <div class="aethernet-spinner">
+              <div class="aethernet-dot1"></div>
+              <div class="aethernet-dot2"></div>
+            </div>
+          </div>
+          <div class="row day-selection-container">
+            <div id="day-left-clicker" class="day-clicker">
+              <div class="icon-wrapper">
+                <i class="material-icons day-clicker-icon">chevron_left</i>
+              </div>
+            </div>
+            <div class="days-container">
+              <!-- this is populated dynamically via custom.js javascript -->
+            </div>
+            <div id="day-right-clicker" class="day-clicker">
+              <div class="icon-wrapper">
+                <i class="material-icons day-clicker-icon">chevron_right</i>
+              </div>
+            </div>
+          </div>
+          <!-- day-events-container objects are populated dynamically via custom.js javascript -->
+        </section>
+      </div>
       <div class="container aethernet-special">
         <section class="mb-4">
           <h2 class="text-center no-mt mb-6 wow fadeInUp">What Makes <strong>The Aethernet</strong> Special</h2>
