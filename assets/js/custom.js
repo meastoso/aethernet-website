@@ -24,7 +24,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Shadowbringers content! Heres some long content Heres some long content Heres some long content Heres some long content';
+    const defaultDescription = 'Come join us while we explore all the new FFXIV Shadowbringers content!';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
