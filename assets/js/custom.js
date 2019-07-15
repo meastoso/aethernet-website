@@ -24,7 +24,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Shadowbringers content!';
+    const defaultDescription = 'Come join us while we explore all the new FFXIV Shadowbringers content! Heres some long content Heres some long content Heres some long content Heres some long content';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
@@ -172,43 +172,45 @@ function createClickHandler() {
 
 function fetchProfileImages() {
     // asynchronously go and populate the profile images for each event
+    // only call twitch once but include all the names we want to include
+    const twitchUsernamesArr = [];
+    // first get all the twitch usernames we care about
     $('.schedule-event-profile-pic').each(function(index) {
         const twitchName = $(this).data('twitchName');
-        const thisImg = $(this); // reference for later in success function
-        const delayAmount = 200 * index;
-        const callComplete = function(response) {
-            if (!response.data) {
-                console.log('ERROR: We successfully completed the twitch getUser API call but response did not contain data object!');
-            }
-            const userObj = response.data[0];
+        if (twitchUsernamesArr.indexOf(twitchName) < 0) {
+            twitchUsernamesArr.push(twitchName);
+        }
+    });
+    let apiUrl = 'https://api.twitch.tv/helix/users?login=';
+    for (let i = 0; i < twitchUsernamesArr.length; i++) {
+        let stringToAdd = twitchUsernamesArr[i];
+        if (i > 0) stringToAdd = '&login=' + stringToAdd;
+        apiUrl = apiUrl + stringToAdd;
+    }
+    const callComplete = function(response) {
+        if (!response.data) {
+            console.log('ERROR: We successfully completed the twitch getUser API call but response did not contain data object!');
+        }
+        for (let i = 0; i < response.data.length; i++) {
+            const userObj = response.data[i];
             twitchUserMap[userObj.login] = userObj;
             // update the profile image URL
-            thisImg.attr('src', userObj.profile_image_url);
+            $('.schedule-event-profile-pic[data-twitch-name="' + userObj.login + '"]').attr('src', userObj.profile_image_url);
             // now user the user object's display_name property to make sure capitalization and such are correct
-            $('.streamer-name[data-name="' + twitchName + '"]').text(userObj.display_name);
+            $('.streamer-name[data-name="' + userObj.login + '"]').text(userObj.display_name);
         }
-
-        /*
-        NOTE: Spread out the calls to twitch API or we will get a 429 (too many requests)
-         */
-        setTimeout(function() {
-            if (!twitchUserMap[twitchName]) {
-                $.ajax({
-                    url: 'https://api.twitch.tv/helix/users?login=' + twitchName,
-                    type: 'GET',
-                    beforeSend: function(xhr){xhr.setRequestHeader('Client-ID', 'nogdjownnpxw2f464pxutwidsan0d6');},
-                    success: callComplete,
-                    error: function (error) {
-                        console.log('ERROR: Failed to get the user object from Twitch API with error:');
-                        console.log(error);
-                    }
-                });
-            } else {
-                // we already have the userObject
-                thisImg.attr('src', twitchUserMap[twitchName].profile_image_url);
-            }
-        }, delayAmount);
+    }
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        beforeSend: function(xhr){xhr.setRequestHeader('Client-ID', 'nogdjownnpxw2f464pxutwidsan0d6');},
+        success: callComplete,
+        error: function (error) {
+            console.log('ERROR: Failed to get the user object from Twitch API with error:');
+            console.log(error);
+        }
     });
+
 }
 
 function createDomElements() {
