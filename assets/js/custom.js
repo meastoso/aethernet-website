@@ -220,11 +220,15 @@ function createDomElements() {
     fetchProfileImages();
 }
 
+function populateLiveUserLink(liveUser) {
+    $('#watchLiveLink').attr('href', 'https://www.twitch.tv/' + liveUser);
+}
+
 $( document ).ready(function() {
     $("#viewTeam").on('click', function() {
     	$("html, body").animate({ scrollTop: $('#teamContainer').offset().top }, 1000);
     });
-    var scheduleRequest = $.getJSON('http://anetbot-env.8vq3ga82df.us-east-1.elasticbeanstalk.com/schedule',
+    var scheduleRequest = $.getJSON('https://twitch.meastoso-backend.com/schedule',
         function(response) {
             // first check if the Google OAUTH failed (tryagain)
             if (!response.errors) {
@@ -235,7 +239,7 @@ $( document ).ready(function() {
                 // there were errors, retry after 1-second delay to allow OATH to renew credentials :(
                 // TODO: fix the OATH garbage on back-end
                 setTimeout(function() {
-                    var scheduleRequest2 = $.getJSON('http://anetbot-env.8vq3ga82df.us-east-1.elasticbeanstalk.com/schedule',
+                    var scheduleRequest2 = $.getJSON('https://twitch.meastoso-backend.com/schedule',
                         function(response) {
                             // first check if the Google OAUTH failed (try again)
                             if (!response.errors) {
@@ -264,6 +268,21 @@ $( document ).ready(function() {
         })
         .always(function() {
             $('#scheduleLoadingSpinner').hide();
+        });
+
+    // populate the LIVE NOW link
+    var liveUserRequest = $.getJSON('https://twitch.meastoso-backend.com/liveUser',
+        function(liveUser) {
+            if (liveUser && liveUser != null) {
+                populateLiveUserLink(liveUser);
+            }
+            else {
+                console.log('ERROR: LiveUser endpoint returned "null"');
+            }
+        })
+        .fail(function(err) {
+            console.log("ERROR: Could not retrieve live user:");
+            console.log(err);
         });
 
     $('#day-right-clicker').click(function() {
