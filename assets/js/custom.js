@@ -110,8 +110,11 @@ function populateDayMap(calendarEventArr) {
  */
 function populateDaysContainer() {
     // find <div class="days-container"> and add children to it
-    for (const day in dayMap) {
-        const dayObj = dayMap[day];
+    const sortedDays = sortDays();
+    //for (const day in dayMap) {
+    for (let k = 0; k < sortedDays.length; k++) {
+        //const dayObj = dayMap[day];
+        const dayObj = sortedDays[k];
         const newDayElement = '<div class="day" data-day="' + dayObj.dayOfMonth + '">' +
             '<div class="day-name">' + dayObj.dayOfWeek + '</div>' +
             '<div class="day-date">' + dayObj.monthName + ' ' + dayObj.dayOfMonth + '</div>' +
@@ -120,9 +123,33 @@ function populateDaysContainer() {
     }
 }
 
+// TODO: this is hardcoded for 5.1, make generic PLZ don't be trash meastoso
+function sortDays() {
+	let sortedArr = [];
+	// first find the october days
+	for (const day in dayMap) {
+		const dayObj = dayMap[day];
+		if (dayObj.monthName === 'October') {
+			sortedArr.push(dayObj);
+		}
+	}
+	// first find the october days
+	for (const day in dayMap) {
+		const dayObj = dayMap[day];
+		if (dayObj.monthName === 'November') {
+			sortedArr.push(dayObj);
+		}
+	}
+	return sortedArr;
+}
+
 function createAndPopulateDayEventsContainers() {
-    for (const day in dayMap) {
-        const dayObj = dayMap[day];
+    const sortedDays = sortDays();
+    //for (const day in dayMap) {
+    for (let k = 0; k < sortedDays.length; k++) {
+        //const dayObj = dayMap[day];
+        const dayObj = sortedDays[k];
+        // TODO: AFTER BOK PLAY SORT THE DAYS AND THEN BUILD DOM
         // for each day make a new day-events-container
         const newDayEventsContainer = $('<div class="day-events-container" data-day="' + dayObj.dayOfMonth + '"></div>');
         // now loop through each event for this day and generate a new schedule-event row
@@ -133,10 +160,10 @@ function createAndPopulateDayEventsContainers() {
                 '                <span class="schedule-event-time">' + newEvent.time1 + '</span><span class="schedule-event-time2">' + newEvent.time2 + '</span>' +
                 '              </div>' +
                 '              <div class="twitch-profile-pic">' +
-                '                <img class="schedule-event-profile-pic" src="' + newEvent.twitchProfilePicUrl + '" data-twitch-name="' + newEvent.twitchName + '"/>' +
+                '                <img class="schedule-event-profile-pic" src="' + newEvent.twitchProfilePicUrl + '" data-twitch-name="' + newEvent.twitchName.trim().toLowerCase() + '"/>' +
                 '              </div>' +
                 '              <div class="event-description">' +
-                '                <div class="streamer-name" data-name="' + newEvent.twitchName + '">' + newEvent.twitchName + '</div>' +
+                '                <div class="streamer-name" data-name="' + newEvent.twitchName.trim().toLowerCase() + '">' + newEvent.twitchName + '</div>' +
                 '                <div class="stream-description">' + newEvent.eventDescription + '</div>' +
                 '                <div class="follow"><a target="_blank" href="https://twitch.tv/' + newEvent.twitchName + '">Follow on Twitch!</a></div>' +
                 '              </div>' +
@@ -173,10 +200,13 @@ function createClickHandler() {
 function fetchProfileImages() {
     // asynchronously go and populate the profile images for each event
     // only call twitch once but include all the names we want to include
-    const twitchUsernamesArr = [];
+    let twitchUsernamesArr = [];
     // first get all the twitch usernames we care about
     $('.schedule-event-profile-pic').each(function(index) {
-        const twitchName = $(this).data('twitchName');
+        let twitchName = $(this).data('twitchName');
+        if (twitchName) {
+        		twitchName = twitchName.trim().toLowerCase();
+        }
         if (twitchUsernamesArr.indexOf(twitchName) < 0) {
             twitchUsernamesArr.push(twitchName);
         }
@@ -228,7 +258,9 @@ $( document ).ready(function() {
     $("#viewTeam").on('click', function() {
     	$("html, body").animate({ scrollTop: $('#teamContainer').offset().top }, 1000);
     });
-    var scheduleRequest = $.getJSON('https://twitch.meastoso-backend.com/schedule',
+    var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
+    var scheduleURI_test = 'http://localhost:3001/schedule';
+    var scheduleRequest = $.getJSON(scheduleURI,
         function(response) {
             // first check if the Google OAUTH failed (tryagain)
             if (!response.errors) {
@@ -239,7 +271,7 @@ $( document ).ready(function() {
                 // there were errors, retry after 1-second delay to allow OATH to renew credentials :(
                 // TODO: fix the OATH garbage on back-end
                 setTimeout(function() {
-                    var scheduleRequest2 = $.getJSON('https://twitch.meastoso-backend.com/schedule',
+                    var scheduleRequest2 = $.getJSON(scheduleURI,
                         function(response) {
                             // first check if the Google OAUTH failed (try again)
                             if (!response.errors) {
