@@ -129,7 +129,7 @@ function sortDays() {
 	// first find the october days
 	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'October') {
+		if (dayObj.monthName === 'February') {
 			sortedArr.push(dayObj);
 		}
 	}
@@ -260,7 +260,7 @@ $( document ).ready(function() {
     });
     var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
     var scheduleURI_test = 'http://localhost:3001/schedule';
-    /*var scheduleRequest = $.getJSON(scheduleURI,
+    var scheduleRequest = $.getJSON(scheduleURI,
         function(response) {
             // first check if the Google OAUTH failed (tryagain)
             if (!response.errors) {
@@ -329,5 +329,5 @@ $( document ).ready(function() {
         $('.days-container').animate({
             scrollLeft: "-=300px"
         }, "slow");
-    });*/
+    });
 });
