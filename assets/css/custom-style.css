@@ -227,9 +227,20 @@ span.schedule-event-time2 {
 	margin-left: 10px;
 }
 
-.twitch-profile-pic img {
+.twitch-profile-pic {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
 	border-radius: 50%;
-	max-height: 75px;
+}
+
+.twitch-profile-pic img {
+	display: inline;
+	margin: 0 auto;
+	margin-left: -25%;
+	height: 100%;
+	width: auto;
 }
 
 .event-description {

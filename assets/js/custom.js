@@ -15,6 +15,25 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 const twitchUserMap = {};
 
+// hard-coded map to profile pictures since twitch require OAuth now for all APIs even getting images
+const twitchUsernameToImageMap = {
+    'meastoso': 'meastoso.png',
+    'arcane_arts': 'arcane.png',
+    'spofie': 'sofie3.png',
+    'tuatime': 'Tua.png',
+    'glennangel': 'glenn.png',
+    'seika': 'seikachu.png',
+    'missrogueflame': 'Rogue.png',
+    'crevlm': 'crev.png',
+    'josgar': 'jos.png',
+    'galaxyaus': 'galaxy.png',
+    'brianricardo': 'brian_ricardo.jpg',
+    'healmeharry': 'harry2.png',
+    'pookajutsu': 'pook2.png',
+    'rahhzay': 'Rahhzay.png',
+    'tequilashots1500': 'tequila2.png',
+}
+
 function getTimeSuffix(d) {
     return d.getHours() >= 12 ? 'PM' : 'AM';
 }
@@ -24,7 +43,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Shadowbringers content!';
+    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.3 content!';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
@@ -129,17 +148,17 @@ function sortDays() {
 	// first find the october days
 	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'February') {
+		if (dayObj.monthName === 'August') {
 			sortedArr.push(dayObj);
 		}
 	}
 	// first find the october days
-	for (const day in dayMap) {
+	/*for (const day in dayMap) {
 		const dayObj = dayMap[day];
 		if (dayObj.monthName === 'November') {
 			sortedArr.push(dayObj);
 		}
-	}
+	}*/
 	return sortedArr;
 }
 
@@ -197,6 +216,7 @@ function createClickHandler() {
     $('.day').first().click();
 }
 
+// Workaround using profile images we have locally because twitch requires OAuth
 function fetchProfileImages() {
     // asynchronously go and populate the profile images for each event
     // only call twitch once but include all the names we want to include
@@ -243,11 +263,35 @@ function fetchProfileImages() {
 
 }
 
+function fetchProfileImagesLocal() {
+    let twitchUsernamesArr = [];
+    // first get all the twitch usernames we care about
+    $('.schedule-event-profile-pic').each(function(index) {
+        let twitchName = $(this).data('twitchName');
+        if (twitchName) {
+            twitchName = twitchName.trim().toLowerCase();
+        }
+        if (twitchUsernamesArr.indexOf(twitchName) < 0) {
+            twitchUsernamesArr.push(twitchName);
+        }
+    });
+    console.log("finished updating twitchUsernamesArr: ");
+    console.log(twitchUsernamesArr);
+    twitchUsernamesArr.forEach(function(twitchUsername) {
+        console.log("updating images for twitchUsername: " + twitchUsername);
+        // update the profile image URL
+        $('.schedule-event-profile-pic[data-twitch-name="' + twitchUsername + '"]').attr('src', 'assets/img/profile/' + twitchUsernameToImageMap[twitchUsername]);
+        // now user the user object's display_name property to make sure capitalization and such are correct
+        // $('.streamer-name[data-name="' + twitchUsername + '"]').text(twitchUsername);
+    });
+}
+
 function createDomElements() {
     populateDaysContainer();
     createAndPopulateDayEventsContainers();
     createClickHandler();
-    fetchProfileImages();
+    // fetchProfileImages();
+    fetchProfileImagesLocal();
 }
 
 function populateLiveUserLink(liveUser) {
