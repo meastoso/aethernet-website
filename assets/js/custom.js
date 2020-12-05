@@ -28,10 +28,15 @@ const twitchUsernameToImageMap = {
     'josgar': 'jos.png',
     'galaxyaus': 'galaxy.png',
     'brianricardo': 'brian_ricardo.jpg',
-    'healmeharry': 'harry2.png',
+    'hupo': 'harry2.png',
     'pookajutsu': 'pook2.png',
     'rahhzay': 'Rahhzay.png',
     'tequilashots1500': 'tequila2.png',
+    'psirisluno': 'Psiris.jpg',
+    'chilifarmer': 'Chili.png',
+    'shleb': 'Shleb.png',
+    'darianhart': 'Darian.png',
+    'deenuglife': 'DeeNugLife.png',
 }
 
 function getTimeSuffix(d) {
@@ -43,7 +48,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.3 content!';
+    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.4 content!';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
@@ -146,9 +151,11 @@ function populateDaysContainer() {
 function sortDays() {
 	let sortedArr = [];
 	// first find the october days
+    console.log("dayMap is:");
+    console.log(dayMap);
 	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'August') {
+		if (dayObj.monthName === 'December') {
 			sortedArr.push(dayObj);
 		}
 	}
