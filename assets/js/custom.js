@@ -37,6 +37,9 @@ const twitchUsernameToImageMap = {
     'shleb': 'Shleb.png',
     'darianhart': 'Darian.png',
     'deenuglife': 'DeeNugLife.png',
+    'paopukomi': 'Komi.png',
+    'ethysasher': 'Ethys.png'
+
 }
 
 function getTimeSuffix(d) {
@@ -48,7 +51,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.4 content!';
+    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.5 content!';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
@@ -151,11 +154,9 @@ function populateDaysContainer() {
 function sortDays() {
 	let sortedArr = [];
 	// first find the october days
-    console.log("dayMap is:");
-    console.log(dayMap);
 	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'December') {
+		if (dayObj.monthName === 'April' && parseInt(dayObj.dayOfMonth) > 12) {
 			sortedArr.push(dayObj);
 		}
 	}
@@ -282,10 +283,7 @@ function fetchProfileImagesLocal() {
             twitchUsernamesArr.push(twitchName);
         }
     });
-    console.log("finished updating twitchUsernamesArr: ");
-    console.log(twitchUsernamesArr);
     twitchUsernamesArr.forEach(function(twitchUsername) {
-        console.log("updating images for twitchUsername: " + twitchUsername);
         // update the profile image URL
         $('.schedule-event-profile-pic[data-twitch-name="' + twitchUsername + '"]').attr('src', 'assets/img/profile/' + twitchUsernameToImageMap[twitchUsername]);
         // now user the user object's display_name property to make sure capitalization and such are correct
