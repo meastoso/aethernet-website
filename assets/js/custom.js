@@ -307,7 +307,7 @@ $( document ).ready(function() {
     $("#viewTeam").on('click', function() {
     	$("html, body").animate({ scrollTop: $('#teamContainer').offset().top }, 1000);
     });
-    var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
+    /*var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
     var scheduleURI_test = 'http://localhost:3001/schedule';
     var scheduleRequest = $.getJSON(scheduleURI,
         function(response) {
@@ -378,5 +378,5 @@ $( document ).ready(function() {
         $('.days-container').animate({
             scrollLeft: "-=300px"
         }, "slow");
-    });
+    });*/
 });
