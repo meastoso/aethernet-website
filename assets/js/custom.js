@@ -49,7 +49,7 @@ function getTime(d) {
 }
 
 function createNewEvent(calenderEvent) {
-    const defaultDescription = 'Come join us while we explore all the new FFXIV Patch 5.5 content!';
+    const defaultDescription = '';
     const eventDescription = calenderEvent.description == undefined ? defaultDescription : calenderEvent.description;
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
