@@ -21,10 +21,8 @@ const twitchUsernameToImageMap = {
     'arcane_arts': 'arcane.png',
     'spofie': 'sofie3.png',
     'tuatime': 'Tua.png',
-    'glennangel': 'glenn.png',
     'seika': 'seikachu.png',
-    'missrogueflame': 'Rogue.png',
-    'crevlm': 'crev.png',
+    'crev': 'crev.png',
     'josgar': 'jos.png',
     'galaxyaus': 'galaxy.png',
     'brianricardo': 'brian_ricardo.jpg',
@@ -34,11 +32,11 @@ const twitchUsernameToImageMap = {
     'tequilashots1500': 'tequila2.png',
     'psirisluno': 'Psiris.jpg',
     'chilifarmer': 'Chili.png',
-    'shleb': 'Shleb.png',
     'darianhart': 'Darian.png',
     'deenuglife': 'DeeNugLife.png',
     'paopukomi': 'Komi.png',
-    'ethysasher': 'Ethys.png'
+    'ethysasher': 'Ethys.png',
+    'curiousjoi': 'curiousjoi.png'
 
 }
 
@@ -153,13 +151,18 @@ function populateDaysContainer() {
 // TODO: this is hardcoded for 5.1, make generic PLZ don't be trash meastoso
 function sortDays() {
 	let sortedArr = [];
+	// generic version if all days are in same month
+    for (const day in dayMap) {
+        const dayObj = dayMap[day];
+        sortedArr.push(dayObj);
+    }
 	// first find the october days
-	for (const day in dayMap) {
+	/*for (const day in dayMap) {
 		const dayObj = dayMap[day];
 		if (dayObj.monthName === 'April' && parseInt(dayObj.dayOfMonth) > 12) {
 			sortedArr.push(dayObj);
 		}
-	}
+	}*/
 	// first find the october days
 	/*for (const day in dayMap) {
 		const dayObj = dayMap[day];
@@ -307,7 +310,8 @@ $( document ).ready(function() {
     $("#viewTeam").on('click', function() {
     	$("html, body").animate({ scrollTop: $('#teamContainer').offset().top }, 1000);
     });
-    /*var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
+    // TODO: Comment out from here down when removing marathon schedule after marathon
+    var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
     var scheduleURI_test = 'http://localhost:3001/schedule';
     var scheduleRequest = $.getJSON(scheduleURI,
         function(response) {
@@ -378,5 +382,6 @@ $( document ).ready(function() {
         $('.days-container').animate({
             scrollLeft: "-=300px"
         }, "slow");
-    });*/
+    });
+    // TODO: Comment to here when marathon over
 });
