@@ -36,7 +36,9 @@ const twitchUsernameToImageMap = {
     'deenuglife': 'DeeNugLife.png',
     'paopukomi': 'Komi.png',
     'ethysasher': 'Ethys.png',
-    'curiousjoi': 'curiousjoi.png'
+    'curiousjoi': 'curiousjoi.png',
+    'llamatodd': 'todd.png',
+    'birdofchess': 'rook.jpg'
 
 }
 
