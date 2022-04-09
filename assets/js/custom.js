@@ -38,7 +38,7 @@ const twitchUsernameToImageMap = {
     'ethysasher': 'Ethys.png',
     'curiousjoi': 'curiousjoi.png',
     'llamatodd': 'todd.png',
-    'birdofchess': 'rook.jpg'
+    'rookuri': 'rook.jpg'
 
 }
 
@@ -290,7 +290,11 @@ function fetchProfileImagesLocal() {
     });
     twitchUsernamesArr.forEach(function(twitchUsername) {
         // update the profile image URL
-        $('.schedule-event-profile-pic[data-twitch-name="' + twitchUsername + '"]').attr('src', 'assets/img/profile/' + twitchUsernameToImageMap[twitchUsername]);
+        let imageFile = 'assets/img/rebrand/logomark4x.png';
+        if (twitchUsernameToImageMap[twitchUsername]) {
+            imageFile = 'assets/img/profile/' + twitchUsernameToImageMap[twitchUsername];
+        }
+        $('.schedule-event-profile-pic[data-twitch-name="' + twitchUsername + '"]').attr('src', imageFile);
         // now user the user object's display_name property to make sure capitalization and such are correct
         // $('.streamer-name[data-name="' + twitchUsername + '"]').text(twitchUsername);
     });
