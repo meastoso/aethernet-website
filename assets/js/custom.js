@@ -11,7 +11,7 @@ const dayOfWeekMap = {
     6: 'SAT',
 };
 const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "July", "August", "Sept", "October", "November", "December"
 ];
 const twitchUserMap = {};
 
@@ -38,7 +38,8 @@ const twitchUsernameToImageMap = {
     'ethysasher': 'Ethys.png',
     'curiousjoi': 'curiousjoi.png',
     'llamatodd': 'todd.png',
-    'rookuri': 'rook.jpg'
+    'rookuri': 'rook.jpg',
+    'mtqcapture': 'mizz.png'
 
 }
 
@@ -56,7 +57,7 @@ function createNewEvent(calenderEvent) {
     const newEvent = {
         'time1': getTime(new Date(calenderEvent.start.dateTime)) + ':00',
         'time2': getTimeSuffix(new Date(calenderEvent.start.dateTime)),
-        'twitchName': calenderEvent.summary,
+        'twitchName': calenderEvent.summary == undefined ? "TBD" : calenderEvent.summary,
         'twitchProfilePicUrl': '',
         'eventDescription': eventDescription,
         'startTime': new Date(calenderEvent.start.dateTime),
@@ -113,7 +114,7 @@ function populateDayMap(calendarEventArr) {
     }
     for (let i = 0; i < calendarEventArr.length; i++) {
         const calendarEvent = calendarEventArr[i];
-        if (!calendarEvent.start || !calendarEvent.end || !calendarEvent.summary) {
+        if (!calendarEvent.start || !calendarEvent.end) {
             console.log('The following calendar event did not contain a start, end or summary:');
             console.log(calendarEvent);
             return;
@@ -154,24 +155,24 @@ function populateDaysContainer() {
 function sortDays() {
 	let sortedArr = [];
 	// generic version if all days are in same month
-    for (const day in dayMap) {
-        const dayObj = dayMap[day];
-        sortedArr.push(dayObj);
-    }
+    // for (const day in dayMap) {
+    //     const dayObj = dayMap[day];
+    //     sortedArr.push(dayObj);
+    // }
 	// first find the october days
-	/*for (const day in dayMap) {
+	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'April' && parseInt(dayObj.dayOfMonth) > 12) {
+		if (dayObj.monthName === 'August' && parseInt(dayObj.dayOfMonth) > 12) {
 			sortedArr.push(dayObj);
 		}
-	}*/
+	}
 	// first find the october days
-	/*for (const day in dayMap) {
+	for (const day in dayMap) {
 		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'November') {
+		if (dayObj.monthName === 'Sept') {
 			sortedArr.push(dayObj);
 		}
-	}*/
+	}
 	return sortedArr;
 }
 
@@ -390,4 +391,13 @@ $( document ).ready(function() {
         }, "slow");
     });
     // TODO: Comment to here when marathon over
+    /** **********************************************************************
+     * THIS IS A KILL SWITCH TO AUTOMATICALLY HIDE MARATHON AFTER ITS DONE
+     * TODO: Update this date for each marathon!!!!!!
+     ***********************************************************************/
+    const today = new Date();
+    const lastMarathonDate = new Date('September 5, 2022 03:24:00');
+    if (today > lastMarathonDate) {
+        $(".container.schedule").hide();
+    }
 });
