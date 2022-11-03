@@ -62,6 +62,14 @@
 	background-color: #3FA6E2;
 }
 
+.btn-circle.btn-circle-raised.btn-tiktok {
+	background-color: #333333;
+}
+
+.btn-circle.btn-circle-raised.btn-tiktok::before {
+	background-color: #000000;
+}
+
 .color-primary {
 	color: #3FA6E2 !important;
 }
