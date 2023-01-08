@@ -17,30 +17,33 @@ const twitchUserMap = {};
 
 // hard-coded map to profile pictures since twitch require OAuth now for all APIs even getting images
 const twitchUsernameToImageMap = {
-    'meastoso': 'meastoso.png',
-    'arcane_arts': 'arcane.png',
-    'spofie': 'sofie3.png',
-    'tuatime': 'Tua.png',
-    'seika': 'seikachu.png',
-    'crev': 'crev.png',
-    'josgar': 'jos.png',
-    'galaxyaus': 'galaxy.png',
-    'brianricardo': 'brian_ricardo.jpg',
-    'hupo': 'harry2.png',
-    'pookajutsu': 'pook2.png',
-    'rahhzay': 'Rahhzay.png',
-    'tequilashots1500': 'tequila2.png',
-    'psirisluno': 'Psiris.jpg',
-    'chilifarmer': 'Chili.png',
-    'darianhart': 'Darian.png',
-    'deenuglife': 'DeeNugLife.png',
-    'paopukomi': 'Komi.png',
-    'ethysasher': 'Ethys.png',
-    'curiousjoi': 'curiousjoi.png',
-    'llamatodd': 'todd.png',
-    'rookuri': 'rook.jpg',
-    'mtqcapture': 'mizz.png'
-
+    "meastoso": "meastoso.png",
+    "arcane_arts": "arcane.png",
+    "spofie": "sofie3.png",
+    "tuatime": "Tua.png",
+    "seika": "seikachu.png",
+    "crev": "crev.png",
+    "josgar": "jos.png",
+    "brianricardo": "brian_ricardo.jpg",
+    "pookajutsu": "pook2.png",
+    "rahhzay": "Rahhzay.png",
+    "tequilashots1500": "tequila2.png",
+    "psirisluno": "Psiris.jpg",
+    "chilifarmer": "Chili.png",
+    "darianhart": "Darian.png",
+    "deenuglife": "DeeNugLife.png",
+    "paopukomi": "Komi.png",
+    "curiousjoi": "curiousjoi.png",
+    "llamatodd": "todd.png",
+    "rookuri": "rook.jpg",
+    "mtqcapture": "mizz.png",
+    "midnababy": "midna.jpg",
+    "angelusdemonus": "angelus.png",
+    "mo_ranes": "mo.png",
+    "stal": "stal.png",
+    "dejavudea": "dea2.png",
+    "sarahjane": "sarah.jpg",
+    "aiyanya": "aiyana.png"
 }
 
 function getTimeSuffix(d) {
@@ -155,24 +158,24 @@ function populateDaysContainer() {
 function sortDays() {
 	let sortedArr = [];
 	// generic version if all days are in same month
-    // for (const day in dayMap) {
-    //     const dayObj = dayMap[day];
-    //     sortedArr.push(dayObj);
-    // }
+    for (const day in dayMap) {
+        const dayObj = dayMap[day];
+        sortedArr.push(dayObj);
+    }
 	// first find the october days
-	for (const day in dayMap) {
-		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'August' && parseInt(dayObj.dayOfMonth) > 12) {
-			sortedArr.push(dayObj);
-		}
-	}
-	// first find the october days
-	for (const day in dayMap) {
-		const dayObj = dayMap[day];
-		if (dayObj.monthName === 'Sept') {
-			sortedArr.push(dayObj);
-		}
-	}
+	// for (const day in dayMap) {
+	// 	const dayObj = dayMap[day];
+	// 	if (dayObj.monthName === 'August' && parseInt(dayObj.dayOfMonth) > 12) {
+	// 		sortedArr.push(dayObj);
+	// 	}
+	// }
+	// // first find the october days
+	// for (const day in dayMap) {
+	// 	const dayObj = dayMap[day];
+	// 	if (dayObj.monthName === 'Sept') {
+	// 		sortedArr.push(dayObj);
+	// 	}
+	// }
 	return sortedArr;
 }
 
@@ -353,6 +356,10 @@ $( document ).ready(function() {
                         });
                     }, 1000);
             }
+            if (!response.length) {
+                // no schedule yet; this is only relevant when setting up for marathon and the calendar isn't updated yet
+                $(".container.schedule").hide();
+            }
         })
         .fail(function(err) {
             console.log("ERROR: Could not retrieve calendar events:");
@@ -396,7 +403,7 @@ $( document ).ready(function() {
      * TODO: Update this date for each marathon!!!!!!
      ***********************************************************************/
     const today = new Date();
-    const lastMarathonDate = new Date('September 5, 2022 03:24:00');
+    const lastMarathonDate = new Date('January 20, 2023 00:00:00');
     if (today > lastMarathonDate) {
         $(".container.schedule").hide();
     }
