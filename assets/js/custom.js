@@ -31,7 +31,7 @@ const twitchUsernameToImageMap = {
     "psirisluno": "Psiris.jpg",
     "chilifarmer": "Chili.png",
     "darianhart": "Darian.png",
-    "deenuglife": "DeeNugLife.png",
+    "deenialvt": "DeenialVT.png",
     "paopukomi": "Komi.png",
     "curiousjoi": "curiousjoi.png",
     "llamatodd": "todd.png",
@@ -320,91 +320,97 @@ $( document ).ready(function() {
     $("#viewTeam").on('click', function() {
     	$("html, body").animate({ scrollTop: $('#teamContainer').offset().top }, 1000);
     });
-    // TODO: Comment out from here down when removing marathon schedule after marathon
-    var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
-    var scheduleURI_test = 'http://localhost:3001/schedule';
-    var scheduleRequest = $.getJSON(scheduleURI,
-        function(response) {
-            // first check if the Google OAUTH failed (tryagain)
-            if (!response.errors) {
-                populateDayMap(response);
-                createDomElements();
-            }
-            else {
-                // there were errors, retry after 1-second delay to allow OATH to renew credentials :(
-                // TODO: fix the OATH garbage on back-end
-                setTimeout(function() {
-                    var scheduleRequest2 = $.getJSON(scheduleURI,
-                        function(response) {
-                            // first check if the Google OAUTH failed (try again)
-                            if (!response.errors) {
-                                populateDayMap(response);
-                                createDomElements();
-                            }
-                            else {
-                                // there were errors, oh well we really fucked up :(
-                                console.log('ERROR: MEGA-ERROR: Maybe we need to delay this a bit?');
-                                return;
-                            }
-                        })
-                        .fail(function(err) {
-                            console.log("ERROR: Could not retrieve calendar events a SECOND time:");
-                            console.log(err);
-                        })
-                        .always(function() {
-                            $('#scheduleLoadingSpinner').hide();
-                        });
-                    }, 1000);
-            }
-            if (!response.length) {
-                // no schedule yet; this is only relevant when setting up for marathon and the calendar isn't updated yet
-                $(".container.schedule").hide();
-            }
-        })
-        .fail(function(err) {
-            console.log("ERROR: Could not retrieve calendar events:");
-            console.log(err);
-        })
-        .always(function() {
-            $('#scheduleLoadingSpinner').hide();
-        });
-
-    // populate the LIVE NOW link
-    var liveUserRequest = $.getJSON('https://twitch.meastoso-backend.com/liveUser',
-        function(liveUser) {
-            if (liveUser && liveUser != null) {
-                populateLiveUserLink(liveUser);
-            }
-            else {
-                console.log('ERROR: LiveUser endpoint returned "null"');
-            }
-        })
-        .fail(function(err) {
-            console.log("ERROR: Could not retrieve live user:");
-            console.log(err);
-        });
-
-    $('#day-right-clicker').click(function() {
-        event.preventDefault();
-        $('.days-container').animate({
-            scrollLeft: "+=300px"
-        }, "slow");
-    });
-
-    $('#day-left-clicker').click(function() {
-        event.preventDefault();
-        $('.days-container').animate({
-            scrollLeft: "-=300px"
-        }, "slow");
-    });
-    // TODO: Comment to here when marathon over
     /** **********************************************************************
-     * THIS IS A KILL SWITCH TO AUTOMATICALLY HIDE MARATHON AFTER ITS DONE
+     * THIS IS A KILL SWITCH TO AUTOMATICALLY HIDE MARATHON SCHEDULE AFTER ITS DONE
      * TODO: Update this date for each marathon!!!!!!
      ***********************************************************************/
     const today = new Date();
-    const lastMarathonDate = new Date('January 20, 2023 00:00:00');
+    // TODO: Update this date here for each new marathon
+    const lastMarathonDate = new Date('October 24, 2023 00:00:00');
+    const firstMarathonDate = new Date('October 12, 2023 00:00:00');
+    if (today < firstMarathonDate) {
+        $("#watchLiveLink").hide();
+    }
     if (today > lastMarathonDate) {
+        // we are currently past marathon date, hide schedule
         $(".container.schedule").hide();
+    } else {
+        // current date is before marathon is done, let's include it
+        var scheduleURI = 'https://twitch.meastoso-backend.com/schedule';
+        var scheduleURI_test = 'http://localhost:3001/schedule';
+        var scheduleRequest = $.getJSON(scheduleURI,
+            function(response) {
+                // first check if the Google OAUTH failed (tryagain)
+                if (!response.errors) {
+                    populateDayMap(response);
+                    createDomElements();
+                }
+                else {
+                    // there were errors, retry after 1-second delay to allow OATH to renew credentials :(
+                    // TODO: fix the OATH garbage on back-end
+                    setTimeout(function() {
+                        var scheduleRequest2 = $.getJSON(scheduleURI,
+                            function(response) {
+                                // first check if the Google OAUTH failed (try again)
+                                if (!response.errors) {
+                                    populateDayMap(response);
+                                    createDomElements();
+                                }
+                                else {
+                                    // there were errors, oh well we really fucked up :(
+                                    console.log('ERROR: MEGA-ERROR: Maybe we need to delay this a bit?');
+                                    return;
+                                }
+                            })
+                            .fail(function(err) {
+                                console.log("ERROR: Could not retrieve calendar events a SECOND time:");
+                                console.log(err);
+                            })
+                            .always(function() {
+                                $('#scheduleLoadingSpinner').hide();
+                            });
+                    }, 1000);
+                }
+                if (!response.length) {
+                    // no schedule yet; this is only relevant when setting up for marathon and the calendar isn't updated yet
+                    $(".container.schedule").hide();
+                }
+            })
+            .fail(function(err) {
+                console.log("ERROR: Could not retrieve calendar events:");
+                console.log(err);
+            })
+            .always(function() {
+                $('#scheduleLoadingSpinner').hide();
+            });
+
+        // populate the LIVE NOW link
+        var liveUserRequest = $.getJSON('https://twitch.meastoso-backend.com/liveUser',
+            function(liveUser) {
+                if (liveUser && liveUser != null) {
+                    populateLiveUserLink(liveUser);
+                }
+                else {
+                    console.log('ERROR: LiveUser endpoint returned "null"');
+                }
+            })
+            .fail(function(err) {
+                console.log("ERROR: Could not retrieve live user:");
+                console.log(err);
+            });
+
+        $('#day-right-clicker').click(function() {
+            event.preventDefault();
+            $('.days-container').animate({
+                scrollLeft: "+=300px"
+            }, "slow");
+        });
+
+        $('#day-left-clicker').click(function() {
+            event.preventDefault();
+            $('.days-container').animate({
+                scrollLeft: "-=300px"
+            }, "slow");
+        });
     }
 });
